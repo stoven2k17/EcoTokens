@@ -1,4 +1,6 @@
 import React from 'react';
+import WaterCard from './components/WaterCard';
+import EnergyCard from './components/EnergyCard';
 
 function App() {
   return (
@@ -19,23 +21,11 @@ function App() {
         gap: '12px',
         marginBottom: '16px'
       }}>
-        <div style={{
-          padding: '12px',
-          backgroundColor: '#f0f9ff',
-          borderRadius: '8px'
-        }}>
-          <div>Energy Used</div>
-          <div style={{ fontSize: '20px', fontWeight: 'bold' }}>0.015 kWh</div>
-        </div>
 
-        <div style={{
-          padding: '12px',
-          backgroundColor: '#f0fdf4',
-          borderRadius: '8px'
-        }}>
-          <div>Water Usage</div>
-          <div style={{ fontSize: '20px', fontWeight: 'bold' }}>5.4 mL</div>
-        </div>
+        <WaterCard />
+        <EnergyCard />
+
+
       </div>
     </div>
   );
