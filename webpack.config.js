@@ -9,7 +9,8 @@ module.exports = {
     devtool: 'cheap-module-source-map',
     entry: {
         popup: path.resolve('src/popup/popup.tsx'),
-        options: path.resolve('src/options/options.tsx')
+        options: path.resolve('src/options/options.tsx'),
+        background: path.resolve('src/background/background.ts')
     },
     module: {
         rules: [
@@ -35,6 +36,11 @@ module.exports = {
                     }
                 ],
                 test : /\.css$/
+            },
+            {
+                type: "asset/resource",
+                use: "asset/resource",
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
             }
         ]
     },
@@ -49,7 +55,7 @@ module.exports = {
         }),
         ...gethtmlPlugins([
             'popup',
-            'options'
+            'options',
         ])
     ],
     resolve: {
@@ -57,6 +63,11 @@ module.exports = {
     },
     output: {
         filename: '[name].js'
+    },
+    optimization : {
+        splitChunks: {
+            chunks: 'all'
+        }
     }
 }
 
