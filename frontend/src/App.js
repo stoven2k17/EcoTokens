@@ -1,15 +1,20 @@
 import React from 'react';
+import { useState } from 'react';
 import WaterCard from './components/WaterCard';
 import EnergyCard from './components/EnergyCard';
+import { loadData } from './functions/storage';
 
 function App() {
+
+  const [water, setWater] = useState(loadData('lastImpact'), water);
+  const [energy, setEnergy] = useState(0);
+
   return (
     <div style={{
-      width: '350px',  // Standard extension width
+      width: '350px',
       minHeight: '400px',
       padding: '16px',
       backgroundColor: 'white',
-      // During development, add a border to visualize popup boundaries
       border: '1px solid #ccc',
       margin: '20px'
     }}>
@@ -22,8 +27,8 @@ function App() {
         marginBottom: '16px'
       }}>
 
-        <WaterCard />
-        <EnergyCard />
+        <WaterCard water={water} />
+        <EnergyCard energy={energy} />
 
 
       </div>

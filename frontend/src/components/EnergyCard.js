@@ -2,7 +2,7 @@ import React from "react"
 
 
 
-export default function EnergyCard() {
+export default function EnergyCard( {energy}) {
 
 
     return (
@@ -13,7 +13,7 @@ export default function EnergyCard() {
           borderRadius: '8px'
         }}>
           <div>Energy Used</div>
-          <div style={{ fontSize: '20px', fontWeight: 'bold' }}>0.015 kWh</div>
+          <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{energy} kWh</div>
         </div>
         </div>
 

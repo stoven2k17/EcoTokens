@@ -1,7 +1,7 @@
 import React from "react"
 
 
-export default function WaterCard() {
+export default function WaterCard( {water}) {
 
     return (
 
@@ -11,7 +11,7 @@ export default function WaterCard() {
             borderRadius: '8px'
           }}>
             <div>Water Usage</div>
-            <div style={{ fontSize: '20px', fontWeight: 'bold' }}>5.4 mL</div>
+            <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{water} mL</div>
           </div>
     )
 }
