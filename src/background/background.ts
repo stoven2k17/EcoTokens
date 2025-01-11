@@ -16,7 +16,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             sendResponse({ success: true, data });
         });
 
-        // Indicate that response will be sent asynchronously
         return true;
     }
 });

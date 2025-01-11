@@ -47,6 +47,10 @@ module.exports = {
                     from: path.resolve('src/static/manifest.json'),
                     to: path.resolve('dist')
                 },
+                {
+                    from: path.resolve('src/static/icon.png'),
+                    to: path.resolve('dist')
+                }
             ]
         }),
         ...gethtmlPlugins([
