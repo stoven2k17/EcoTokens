@@ -3,9 +3,20 @@
     "name": "ecotokens",
     "description": "EcoTokens is a browser extension that helps you to earn tokens by browsing the web.",
     "version": "1.0.0",
+    "permissions": ["scripting", "activeTab"],
+    "host_permissions": ["https://chatgpt.com/*"],
     "action": {
         "default_title": "ecotokens",
         "default_popup": "popup.html"
     },
-    "options_page": "options.html"
+    "options_page": "options.html",
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://chatgpt.com/*"],
+            "js": ["contentScript.js"]
+        }
+    ]
 }
