@@ -14,20 +14,13 @@ const observeDOM = () => {
                     const prompt = promptTextarea.textContent?.trim() || '';
                     console.log('Captured prompt on Enter:', prompt);
 
-                    try {
-                        // Check if extension context is still valid
-                        if (chrome.runtime?.id) {
-                            chrome.runtime.sendMessage({ action: 'capturePrompt', prompt })
-                                .then(response => {
-                                    console.log('Message sent successfully:', response);
-                                })
-                                .catch(error => {
-                                    console.error('Error sending message:', error);
-                                });
+                    chrome.runtime.sendMessage({ action: 'capturePrompt', prompt }, (response) => {
+                        if (chrome.runtime.lastError) {
+                            console.error('Error sending message:', chrome.runtime.lastError);
+                            return;
                         }
-                    } catch (error) {
-                        console.error('Extension context error:', error);
-                    }
+                        console.log('Message sent successfully:', response);
+                    });
                 }
             });
 
@@ -42,20 +35,14 @@ const observeDOM = () => {
                 const prompt = promptTextarea.textContent?.trim() || '';
                 console.log('Captured prompt on Send click:', prompt);
 
-                try {
-                    // Check if extension context is still valid
-                    if (chrome.runtime?.id) {
-                        chrome.runtime.sendMessage({ action: 'capturePrompt', prompt })
-                            .then(response => {
-                                console.log('Message sent successfully:', response);
-                            })
-                            .catch(error => {
-                                console.error('Error sending message:', error);
-                            });
+                // Send the captured prompt to the background script
+                chrome.runtime.sendMessage({ action: 'capturePrompt', prompt }, (response) => {
+                    if (chrome.runtime.lastError) {
+                        console.error('Error sending message:', chrome.runtime.lastError);
+                        return;
                     }
-                } catch (error) {
-                    console.error('Extension context error:', error);
-                }
+                    console.log('Message sent successfully:', response);
+                });
             });
 
             console.log('EcoTokens: Observing the Send button for clicks.');
@@ -63,26 +50,8 @@ const observeDOM = () => {
     }
 };
 
-// Create a cleanup function for the observer
-let observer: MutationObserver | null = null;
+// Observe the entire document for changes to detect when #prompt-textarea and Send button are added or replaced
+const observer = new MutationObserver(observeDOM);
+observer.observe(document.body, { childList: true, subtree: true });
 
-function startObserver() {
-    if (observer) {
-        observer.disconnect();
-    }
 
-    observer = new MutationObserver(observeDOM);
-    observer.observe(document.body, { childList: true, subtree: true });
-    console.log('EcoTokens: Watching for dynamic changes in the DOM.');
-}
-
-// Start observing and handle cleanup
-startObserver();
-
-// Cleanup on unload
-window.addEventListener('unload', () => {
-    if (observer) {
-        observer.disconnect();
-        observer = null;
-    }
-});
