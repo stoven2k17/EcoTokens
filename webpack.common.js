@@ -5,8 +5,6 @@ const tailwindcss = require("tailwindcss");
 const autoprefixer = require("autoprefixer");
 
 module.exports = {
-    mode: "development",
-    devtool: 'cheap-module-source-map',
     entry: {
         popup: path.resolve('src/popup/popup.tsx'),
         options: path.resolve('src/options/options.tsx'),
@@ -51,6 +49,10 @@ module.exports = {
                     from: path.resolve('src/static/manifest.json'),
                     to: path.resolve('dist')
                 },
+                {
+                    from: path.resolve('src/static/icon.png'),
+                    to: path.resolve('dist')
+                }
             ]
         }),
         ...gethtmlPlugins([
